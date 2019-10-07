@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans "My Shop" %}{% endblock %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'shop\css\product_list.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="jumbotron jumbotron-fluid">
+    <div class="contianer">
+      <div class="row px-5">
+        <div class="col-lg-3">
+          <h4 class="mb-4">{% trans "Categories" %}</h4>
+          <ul class="sidebar">
+            <li class="{% if not category %}selected{% endif %}">
+              <a href="{% url 'shop:product_list' %}">{% trans "All" %}</a>
+            </li>
+            {% for c in categories %}
+              <li class="{% if category.slug == c.slug %}selected{% endif %}">
+                <a href="{% url 'shop:list_by_category' c.slug %}" class="text-capitalize">{{c.name}}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-lg-9">
+          <h6 class="display-4 mb-4 text-capitalize">{% if category %}{{category.name}}{% else %}{% trans "Products" %}{% endif %}</h6>
+          <div class="row m-0 p-0">
+            {% for p in products %}
+              <div class="col my-4 p-0">
+                <div class="card p-0" style="width: 18rem;">
+                  <a href="{% url 'shop:product_detail' id=p.id slug=p.slug%}">
+                    <img src="{% if p.image %}{{p.image.url }}{% else %}{% static 'no_image.jpeg' %}{% endif %}" style="height: 200px;" class="card-img-top" title="{{p.name}}">
+                  </a>
+                  <div class="card-body text-center">
+                    <a href="{% url 'shop:product_detail' id=p.id slug=p.slug %}"><h4 class="text-capitalize">{{p.name}}</h4></a>
+                    <p class="card-text">${{p.price}}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

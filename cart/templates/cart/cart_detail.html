@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+  Your Shopping Cart
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h2 class="display-4">Your Shopping Cart</h2>
+    <table class="table table-striped table-bordered text-center mt-5">
+      <thead class="thead-dark">
+        <tr>
+          <th>{% trans "Image" %}</th>
+          <th>{% trans "Product" %}</th>
+          <th>{% trans "Quantity" %}</th>
+          <th>{% trans "Remove" %}</th>
+          <th>{% trans "Unit Price" %} </th>
+          <th>{% trans "Price" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart %}
+          {% with product=item.product %}
+            <tr>
+              <td>
+                <a href="{{ product.get_absolute_url }}">
+                  <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'no_image.jpeg' %}{% endif%}" width="100px" height="100px">
+                </a>
+              </td>
+              <td class="font-weight-bold">{{product.name}}</td>
+              <td>
+                <form	action="{% url 'cart:cart_add' product.id	%}"	method="post">
+                  {% csrf_token %}
+                  {{ item.update_quantity_form.quantity	}}
+                  {{ item.update_quantity_form.update	}}
+                  <input type="submit" class="btn btn-info" value="Update">
+                </form>
+              </td>
+              <td><a href="{% url 'cart:cart_remove' product.id %}">{% trans "Remove" %}</a></td>
+              <td class="">${{item.price}}</td>
+              <td class="">${{item.total_price}}</td>
+            </tr>
+          {% endwith %}
+        {% endfor %}
+
+        {% if cart.coupon %}
+          <tr class="font-weight-bold">
+            <td>SubTotal:</td>
+            <td colspan="4"></td>
+            <td>${{ cart.get_total_price|floatformat:"2"}}</td>
+          </tr>
+          <tr class=" text-justify font-weight-bold">
+              <td colspan="5">"{{ cart.coupon.code }}" Coupon ({{ cart.coupon.discount}}% off)</td>
+              <td class="text-center">-${{ cart.get_discount|floatformat:"2" }}</td>
+          </tr>
+        {% endif %}
+        <tr class="bg-info font-weight-bold">
+          <td>Total</td>
+          <td colspan="4"></td>
+          <td>${{cart.get_total_price_after_discount|floatformat:"2" }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h3 class="lead">{% trans "People who bought this also bought" %}</h3>
+        <div class="row justify-content-start">
+        {% if recommended_products %}
+          {% for p in recommended_products %}
+          <div class="col px-3 text-center">
+            <a href="{{ p.get_absolute_url }}">
+              <img class="border p-2" src="{% if p.image %}{{ p.image.url }}{% else %}{% static 'no_image.jpeg' %}{% endif %}" width="100px" height="100px">
+            </a>
+            <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
+
+          </div>
+          {% endfor %}
+        {% endif %}
+        <div class="col">
+          <h5 class="">Apply Coupon?</h5>
+          <form action="{% url 'coupons:apply' %}" method="post">
+            {% csrf_token %}
+            {{ coupon_form|crispy }}
+            <div class="form-group">
+              <input type="submit" class="btn btn-outline-info" value="{% trans "Apply" %}">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      </div>
+
+    </div>
+
+
+    <p class="text-right mt-4">
+      <a href="{% url 'shop:product_list' %}" class="btn btn-warning">{% trans "Continue Shopping" %}</a>
+      <a href="{% url 'orders:order_create' %}" class="btn btn-success">{% trans "Checkout"%}</a>
+    </p>
+
+  </div>
+{% endblock %}

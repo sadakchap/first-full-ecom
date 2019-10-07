@@ -1,0 +1,43 @@
+{% load i18n %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" href="{% url 'shop:product_list' %}">{% trans "My Shop" %}</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">{% trans "About" %}</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Register</a>
+        </li>
+      {% endif %}
+
+      {% get_current_language as LANGUAGE_CODE %}
+      {% get_available_languages as LANGUAGES %}
+      {% get_language_info_list for LANGUAGES as languages %}
+
+      {% for lang in languages %}
+      <li class="nav-item">
+        <a href="/{{ lang.code }}/" class="nav-link {% if lang.code == LANGUAGE_CODE %}selected{% endif %}">
+          {{ lang.name_local }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</nav>

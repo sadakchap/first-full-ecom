@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+  CheckOut|success
+{% endblock %}
+{% block content %}
+  <div class="jumbotron jumbotron-fluid bg-success text-light">
+      <div class="container">
+        <h2 class="display-4">Thank You</h2>
+        <p>Your	order	has	been successfully completed. Your	order	number is <strong>{{ order.id	}}</strong>.</p>
+      </div>
+  </div>
+{% endblock %}

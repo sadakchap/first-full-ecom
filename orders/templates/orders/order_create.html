@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}
+  {% trans "CheckOut" %}
+{% endblock %}
+{% block content %}
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h2 class="display-4"></h2>
+      <div class="row">
+        <div class="col-lg-6">
+          <form	action="."	method="post"	class="order-form">
+            {% csrf_token	%}
+            {{ form|crispy }}
+            <p><input	type="submit"	value="{% trans "Place order" %}"></p>
+      		</form>
+        </div>
+        <div class="col-lg-6 font-weight-bold">
+          <h3 class="text-info mb-3">{% trans "Your Orders" %}</h3>
+          <ul style="border-bottom: 1px solid #00f;" class="pb-4">
+            {% for item in cart %}
+              <li class="d-flex justify-content-between">{{ item.quantity}} x {{ item.product.name }} <span>${{item.total_price}}</span></li>
+            {% endfor %}
+            {% if cart.coupon %}
+              <li class="d-flex justify-content-between">
+                {% blocktrans with code=cart.coupon.code discount=cart.coupon.discount %}
+                  {{ code }} Coupon ({{ discount }}% Off)
+                {% endblocktrans %}
+                <span>-${{cart.get_discount|floatformat:"2"}}</span>
+              </li>
+            {% endif %}
+          </ul>
+          <p class="text-right font-weight-bold">Total: ${{ cart.get_total_price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

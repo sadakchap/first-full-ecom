@@ -1,0 +1,24 @@
+ul.sidebar
+{
+  margin: 10px 20px;;
+  padding: 0;
+  list-style: none;
+}
+.sidebar li{
+  width: 100%;
+}
+.sidebar li a
+{
+  width: 100%;
+  border-radius: 4px;
+  display: block !important;
+  color: #000;
+  text-decoration: none;
+  margin: 5px auto;
+  padding: 10px 20px;
+}
+li.selected a
+{
+    background: #1B264F;
+    color: #F5F3F5;
+}

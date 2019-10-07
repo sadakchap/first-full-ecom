@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-11 23:24+0530\n"
+"PO-Revision-Date: 2019-05-10 17:02+0553\n"
+"Last-Translator: b'  <taporichap@gmail.com>'\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.3\n"
+
+#: .\orders\models.py:12
+msgid "first_name"
+msgstr "nombre"
+
+#: .\orders\models.py:13
+msgid "last_name"
+msgstr "apellidos"
+
+#: .\orders\models.py:14
+msgid "email"
+msgstr "e-mail"
+
+#: .\orders\models.py:15
+msgid "address"
+msgstr "dirección"
+
+#: .\orders\models.py:16
+msgid "postal_code"
+msgstr "código\tpostal"
+
+#: .\orders\models.py:17
+msgid "city"
+msgstr "ciudad"
+
+#: .\orders\models.py:18
+msgid "created"
+msgstr ""
+
+#: .\orders\models.py:19
+msgid "updated"
+msgstr ""
+
+#: .\orders\models.py:20
+msgid "paid"
+msgstr ""
+
+#: .\orders\models.py:21
+msgid "braintree_id"
+msgstr ""
+
+#: .\orders\templates\orders\order_create.html:5
+msgid "CheckOut"
+msgstr ""
+
+#: .\orders\templates\orders\order_create.html:16
+msgid "Place order"
+msgstr "Realizar pedido"
+
+#: .\orders\templates\orders\order_create.html:20
+msgid "Your Orders"
+msgstr "Tus ordenes"
+
+#: .\orders\templates\orders\order_create.html:27
+#, python-format
+msgid ""
+"\n"
+"                  %(code)s Coupon (%(discount)s%% Off)\n"
+"                "
+msgstr ""
+
+#: .\orders\urls.py:9
+msgid "create/"
+msgstr "crear/"
